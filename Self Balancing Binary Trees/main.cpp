@@ -1,6 +1,7 @@
 // Source: https://www.programiz.com/dsa/red-black-tree
 // source: https://www.guru99.com/avl-tree.html
 
+#include <fstream>
 #include <iostream>
 #include <queue>
 #include <unordered_map>
@@ -20,6 +21,8 @@ struct AVL_Node {
   int height;
   struct AVL_Node *right;
 };
+
+int count_AVL = 0, count_RB = 0;
 // ------------------------Red Black Tree--------------------------------
 
 typedef Node *NodePtr;
@@ -648,30 +651,33 @@ int main() {
   RedBlackTree bst;
   AVL avltree;
 
+  ifstream ifile;
+  int temp;
+
    cout<<"-----------AVL Tree------------"<<endl;
 
-  avltree.root = avltree.insert(avltree.root, 50);
-  avltree.root = avltree.insert(avltree.root, 40);
-  avltree.root = avltree.insert(avltree.root, 60);
-  avltree.root = avltree.insert(avltree.root, 45);
-  avltree.root = avltree.insert(avltree.root, 55);
+   ifile.open("array_data.dat");
+  
+  for(int i = 0; i<50; i++){
+      ifile>>temp;
+      avltree.root = avltree.insert(avltree.root, temp);
+  }
 
   cout << "Before Delete" << endl;
   avltree.levelorder_newline();
 
-  avltree.root =  avltree.deleteAVL_Node( avltree.root,45);
+  avltree.root =  avltree.deleteAVL_Node( avltree.root,493);
   
   cout<<endl;
   cout <<endl<<"After Delete" << endl;
   avltree.levelorder_newline();
 
   cout<<endl<<"---------Red Black Tree----------"<<endl;
-  bst.insert(55);
-  bst.insert(40);
-  bst.insert(65);
-  bst.insert(60);
-  bst.insert(75);
-  bst.insert(57);
+  for(int i = 0; i<50; i++){
+      ifile>>temp;
+      bst.insert(temp);
+  }
+
 
   bst.printTree();
   cout << endl
