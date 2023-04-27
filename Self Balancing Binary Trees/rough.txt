@@ -194,7 +194,7 @@ private:
 
   void deleteNodeHelper(NodePtr node, int key)
   {
-
+    
     NodePtr z = TNULL;
     NodePtr x, y;
     count_RB_Delete++;
@@ -658,44 +658,45 @@ public:
     return tp2;
   }
 
-  bool AVLsearch(
-      struct AVL_Node *root, int key)
-  {
-    // If root is NULL
-    if (root == NULL)
-    {
-      cout << "Key not found" << endl;
-      count_AVL_Insert++;
-      return false;
-    }
 
-    // If found, return true
-    else if (root->data == key)
-    {
-      cout << "Key found" << endl;
-      count_AVL_Insert++;
-      return true;
-    }
-    // Recur to the left subtree if
-    // the current node's value is
-    // greater than key
-    else if (root->data > key)
-    {
-      bool val = AVLsearch(root->left, key);
-      count_AVL_Insert;
-      return val;
-    }
+  // bool AVLsearch(
+  //     struct AVL_Node *root, int key)
+  // {
+  //   // If root is NULL
+  //   if (root == NULL){
+  //     cout<<"Key not found"<<endl;
+  //     count_AVL_Insert++;
+  //     return false;
+  //   }
 
-    // Otherwise, recur to the
-    // right subtree
-    else
-    {
-      bool val = AVLsearch(root->right, key);
-      count_AVL_Insert++;
-      return val;
-    }
-  }
 
+  //   // If found, return true
+  //   else if (root->data == key){
+  //     cout<<"Key found"<<endl;
+  //     count_AVL_Insert++;
+  //     return true;
+  //   }
+  //   // Recur to the left subtree if
+  //   // the current node's value is
+  //   // greater than key
+  //   else if (root->data > key)
+  //   {
+  //     bool val = AVLsearch(root->left, key);
+  //     count_AVL_Insert;
+  //     return val;
+  //   }
+
+  //   // Otherwise, recur to the
+  //   // right subtree
+  //   else
+  //   {
+  //     bool val = AVLsearch(root->right, key);
+  //     count_AVL_Insert++;
+  //     return val;
+  //   }
+  // }
+
+  
   struct AVL_Node *insert(struct AVL_Node *r, int data)
   {
 
@@ -888,26 +889,12 @@ int main()
   AVL avltree;
 
   ifstream ifile_AVL, ifile_RB;
-  int temp, delTemp = 0;
+  int temp;
   double duration_Insert_AVL = 0, duration_Insert_RB = 0, duration_Delete_AVL = 0, duration_Delete_RB = 0;
   clock_t start;
-  ofstream ofile;
 
-  ofile.open("array_data.dat");
-
-  srand(time(0));
-  int upper = 500, lower = 10;
-  delTemp = (rand() % (upper - lower + 1)) + lower;
-  cout<<"Delete variable is: "<<delTemp;
-
-  for (int i = 0; i < 100; i++)
-  {
-    int num = (rand() % (upper - lower + 1)) + lower;
-    // cout << num << " ";
-    ofile << num << endl;
-  }
-
-  cout << "-------------Red Black Tree-------------" << endl;
+  
+ cout << "-------------Red Black Tree-------------" << endl;
 
   // start the timer
   start = clock();
@@ -917,7 +904,6 @@ int main()
   for (int i = 0; i < 100; i++)
   {
     ifile_RB >> temp;
-    // cout<<temp<<" "; 
     bst.insert(temp);
   }
 
@@ -930,15 +916,16 @@ int main()
 
   start = clock();
 
-  bst.deleteNode(delTemp);
+  bst.deleteNode(750);
 
   duration_Delete_RB = (clock() - start) / (double)CLOCKS_PER_SEC;
 
   // bst.printTree();
   cout << "Duration to delete an element in AVL tree: " << duration_Delete_RB << endl;
 
-  cout << "Count for Insertion: " << count_RB_Insert << endl;
-  cout << "Count for Deletion: " << count_RB_Delete << endl;
+  cout<<"Count for Insertion: "<<count_RB_Insert<<endl;
+  cout<<"Count for Deletion: "<<count_RB_Delete<<endl;
+
 
   cout << "---------------------AVL Tree-----------------------" << endl;
 
@@ -950,7 +937,6 @@ int main()
   for (int i = 0; i < 100; i++)
   {
     ifile_AVL >> temp;
-    // cout<<temp<<" ";
     avltree.root = avltree.insert(avltree.root, temp);
   }
 
@@ -963,17 +949,18 @@ int main()
 
   start = clock();
 
-  avltree.root = avltree.deleteAVL_Node(avltree.root, delTemp);
+  avltree.root = avltree.deleteAVL_Node(avltree.root, 493);
 
   duration_Delete_AVL = (clock() - start) / (double)CLOCKS_PER_SEC;
   cout << "Duration to delete an element in AVL tree: " << duration_Delete_AVL << endl;
 
-  cout << "Count for Insertion: " << count_AVL_Insert << endl;
-  cout << "Count for Deletion: " << count_AVL_Delete << endl;
+  cout<<"Count for Insertion: "<<count_AVL_Insert<<endl;
+  cout<<"Count for Deletion: "<<count_AVL_Delete<<endl;
 
   // cout<<endl;
   // cout <<endl<<"After Delete" << endl;
   // avltree.levelorder_newline();
 
   cout << endl;
+
 }
