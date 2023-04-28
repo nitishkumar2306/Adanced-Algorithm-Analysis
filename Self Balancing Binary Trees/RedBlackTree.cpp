@@ -1,6 +1,6 @@
 #include "RedBlackTree.h"
 
-void RedBlackTree::initializeNULLNode(NodePtr node, NodePtr parent)
+void RedBlackTree::initializeNULLNode(NodePtr_RB node, NodePtr_RB parent)
   {
     node->data = 0;
     node->parent = parent;
@@ -10,7 +10,7 @@ void RedBlackTree::initializeNULLNode(NodePtr node, NodePtr parent)
   }
 
   // Preorder
-  void RedBlackTree::preOrderHelper(NodePtr node)
+  void RedBlackTree::preOrderHelper(NodePtr_RB node)
   {
     if (node != TNULL)
     {
@@ -21,7 +21,7 @@ void RedBlackTree::initializeNULLNode(NodePtr node, NodePtr parent)
   }
 
   // Inorder
-  void RedBlackTree::inOrderHelper(NodePtr node)
+  void RedBlackTree::inOrderHelper(NodePtr_RB node)
   {
     if (node != TNULL)
     {
@@ -32,7 +32,7 @@ void RedBlackTree::initializeNULLNode(NodePtr node, NodePtr parent)
   }
 
   // Post order
-  void RedBlackTree:: postOrderHelper(NodePtr node)
+  void RedBlackTree:: postOrderHelper(NodePtr_RB node)
   {
     if (node != TNULL)
     {
@@ -42,7 +42,7 @@ void RedBlackTree::initializeNULLNode(NodePtr node, NodePtr parent)
     }
   }
 
-  NodePtr RedBlackTree:: searchTreeHelper(NodePtr node, int key)
+  NodePtr_RB RedBlackTree:: searchTreeHelper(NodePtr_RB node, int key)
   {
     if (node == TNULL || key == node->data)
     {
@@ -65,9 +65,9 @@ void RedBlackTree::initializeNULLNode(NodePtr node, NodePtr parent)
   }
 
   // For balancing the tree after deletion
-  void RedBlackTree::deleteFix(NodePtr x)
+  void RedBlackTree::deleteFix(NodePtr_RB x)
   {
-    NodePtr s;
+    NodePtr_RB s;
     while (x != root && x->color == 0)
     {
       if (x == x->parent->left)
@@ -140,7 +140,7 @@ void RedBlackTree::initializeNULLNode(NodePtr node, NodePtr parent)
     x->color = 0;
   }
 
-  void RedBlackTree::rbTransplant(NodePtr u, NodePtr v)
+  void RedBlackTree::rbTransplant(NodePtr_RB u, NodePtr_RB v)
   {
     if (u->parent == nullptr)
     {
@@ -157,11 +157,11 @@ void RedBlackTree::initializeNULLNode(NodePtr node, NodePtr parent)
     v->parent = u->parent;
   }
 
-  void RedBlackTree::deleteNodeHelper(NodePtr node, int key)
+  void RedBlackTree::deleteNodeHelper(NodePtr_RB node, int key)
   {
     
-    NodePtr z = TNULL;
-    NodePtr x, y;
+    NodePtr_RB z = TNULL;
+    NodePtr_RB x, y;
     count_RB_Delete++;
     while (node != TNULL)
     {
@@ -229,9 +229,9 @@ void RedBlackTree::initializeNULLNode(NodePtr node, NodePtr parent)
   }
 
   // For balancing the tree after insertion
-  void RedBlackTree::insertFix(NodePtr k)
+  void RedBlackTree::insertFix(NodePtr_RB k)
   {
-    NodePtr u;
+    NodePtr_RB u;
     while (k->parent->color == 1)
     {
       if (k->parent == k->parent->parent->right)
@@ -287,7 +287,7 @@ void RedBlackTree::initializeNULLNode(NodePtr node, NodePtr parent)
     root->color = 0;
   }
 
-  void RedBlackTree::printHelper(NodePtr root, string indent, bool last)
+  void RedBlackTree::printHelper(NodePtr_RB root, string indent, bool last)
   {
     if (root != TNULL)
     {
@@ -325,12 +325,12 @@ void RedBlackTree::initializeNULLNode(NodePtr node, NodePtr parent)
     postOrderHelper(this->root);
   }
 
-  NodePtr RedBlackTree::searchTree(int k)
+  NodePtr_RB RedBlackTree::searchTree(int k)
   {
     return searchTreeHelper(this->root, k);
   }
 
-  NodePtr RedBlackTree::minimum(NodePtr node)
+  NodePtr_RB RedBlackTree::minimum(NodePtr_RB node)
   {
     while (node->left != TNULL)
     {
@@ -339,7 +339,7 @@ void RedBlackTree::initializeNULLNode(NodePtr node, NodePtr parent)
     return node;
   }
 
-  NodePtr RedBlackTree::maximum(NodePtr node)
+  NodePtr_RB RedBlackTree::maximum(NodePtr_RB node)
   {
     while (node->right != TNULL)
     {
@@ -348,14 +348,14 @@ void RedBlackTree::initializeNULLNode(NodePtr node, NodePtr parent)
     return node;
   }
 
-  NodePtr RedBlackTree::successor(NodePtr x)
+  NodePtr_RB RedBlackTree::successor(NodePtr_RB x)
   {
     if (x->right != TNULL)
     {
       return minimum(x->right);
     }
 
-    NodePtr y = x->parent;
+    NodePtr_RB y = x->parent;
     while (y != TNULL && x == y->right)
     {
       x = y;
@@ -364,14 +364,14 @@ void RedBlackTree::initializeNULLNode(NodePtr node, NodePtr parent)
     return y;
   }
 
-  NodePtr RedBlackTree::predecessor(NodePtr x)
+  NodePtr_RB RedBlackTree::predecessor(NodePtr_RB x)
   {
     if (x->left != TNULL)
     {
       return maximum(x->left);
     }
 
-    NodePtr y = x->parent;
+    NodePtr_RB y = x->parent;
     while (y != TNULL && x == y->left)
     {
       x = y;
@@ -381,9 +381,9 @@ void RedBlackTree::initializeNULLNode(NodePtr node, NodePtr parent)
     return y;
   }
 
-  void RedBlackTree::leftRotate(NodePtr x)
+  void RedBlackTree::leftRotate(NodePtr_RB x)
   {
-    NodePtr y = x->right;
+    NodePtr_RB y = x->right;
     x->right = y->left;
     if (y->left != TNULL)
     {
@@ -406,9 +406,9 @@ void RedBlackTree::initializeNULLNode(NodePtr node, NodePtr parent)
     x->parent = y;
   }
 
-  void RedBlackTree::rightRotate(NodePtr x)
+  void RedBlackTree::rightRotate(NodePtr_RB x)
   {
-    NodePtr y = x->left;
+    NodePtr_RB y = x->left;
     x->left = y->right;
     if (y->right != TNULL)
     {
@@ -435,15 +435,15 @@ void RedBlackTree::initializeNULLNode(NodePtr node, NodePtr parent)
   void RedBlackTree::insert(int key)
   {
     count_RB_Insert++;
-    NodePtr node = new Node;
+    NodePtr_RB node = new Node_RB;
     node->parent = nullptr;
     node->data = key;
     node->left = TNULL;
     node->right = TNULL;
     node->color = 1;
 
-    NodePtr y = nullptr;
-    NodePtr x = this->root;
+    NodePtr_RB y = nullptr;
+    NodePtr_RB x = this->root;
 
     while (x != TNULL)
     {
@@ -488,7 +488,7 @@ void RedBlackTree::initializeNULLNode(NodePtr node, NodePtr parent)
     insertFix(node);
   }
 
-  NodePtr RedBlackTree::getRoot()
+  NodePtr_RB RedBlackTree::getRoot()
   {
     return this->root;
   }
@@ -505,3 +505,15 @@ void RedBlackTree::initializeNULLNode(NodePtr node, NodePtr parent)
       printHelper(this->root, "", true);
     }
   }
+
+ int RedBlackTree::countInsert()
+  {
+    return count_RB_Insert;
+  }
+
+  int RedBlackTree::countDelete()
+  {
+    return count_RB_Delete;
+  }
+
+

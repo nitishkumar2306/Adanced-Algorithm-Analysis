@@ -4,38 +4,38 @@
 #include <unordered_map>
 using namespace std;
 
-struct Node
+struct Node_RB
 {
     int data;
-    Node *parent;
-    Node *left;
-    Node *right;
+    Node_RB *parent;
+    Node_RB *left;
+    Node_RB *right;
     int color;
 };
 
-int count_RB_Insert = 0, count_RB_Delete = 0;
-typedef Node *NodePtr;
+typedef Node_RB *NodePtr_RB;
 
 class RedBlackTree
 {
 private:
-    NodePtr root;
-    NodePtr TNULL;
-    void initializeNULLNode(NodePtr node, NodePtr parent);
-    void preOrderHelper(NodePtr node);
-    void inOrderHelper(NodePtr node);
-    void postOrderHelper(NodePtr node);
-    NodePtr searchTreeHelper(NodePtr node, int key);
-    void deleteFix(NodePtr x);
-    void rbTransplant(NodePtr u, NodePtr v);
-    void deleteNodeHelper(NodePtr node, int key);
-    void insertFix(NodePtr k);
-    void printHelper(NodePtr root, string indent, bool last);
+    NodePtr_RB root;
+    NodePtr_RB TNULL;
+    int count_RB_Insert = 0, count_RB_Delete = 0;
+    void initializeNULLNode(NodePtr_RB node, NodePtr_RB parent);
+    void preOrderHelper(NodePtr_RB node);
+    void inOrderHelper(NodePtr_RB node);
+    void postOrderHelper(NodePtr_RB node);
+    NodePtr_RB searchTreeHelper(NodePtr_RB node, int key);
+    void deleteFix(NodePtr_RB x);
+    void rbTransplant(NodePtr_RB u, NodePtr_RB v);
+    void deleteNodeHelper(NodePtr_RB node, int key);
+    void insertFix(NodePtr_RB k);
+    void printHelper(NodePtr_RB root, string indent, bool last);
 
 public:
     RedBlackTree()
     {
-        TNULL = new Node;
+        TNULL = new Node_RB;
         TNULL->color = 0;
         TNULL->left = nullptr;
         TNULL->right = nullptr;
@@ -44,15 +44,17 @@ public:
     void preorder();
     void inorder();
     void postorder();
-    NodePtr searchTree(int k);
-    NodePtr minimum(NodePtr node);
-    NodePtr maximum(NodePtr node);
-    NodePtr successor(NodePtr x);
-    NodePtr predecessor(NodePtr x);
-    void leftRotate(NodePtr x);
-    void rightRotate(NodePtr x);
+    NodePtr_RB searchTree(int k);
+    NodePtr_RB minimum(NodePtr_RB node);
+    NodePtr_RB maximum(NodePtr_RB node);
+    NodePtr_RB successor(NodePtr_RB x);
+    NodePtr_RB predecessor(NodePtr_RB x);
+    void leftRotate(NodePtr_RB x);
+    void rightRotate(NodePtr_RB x);
     void insert(int key);
-    NodePtr getRoot();
+    NodePtr_RB getRoot();
     void deleteNode(int data);
     void printTree();
+    int countInsert(); 
+    int countDelete();
 };
